@@ -27,6 +27,7 @@ app.use( express.static('public') );
 
 app.use( '/api/usuarios', require('./routes/usuarios') );
 app.use( '/api/incomes', require('./routes/incomes') );
+app.use( '/api/products', require('./routes/products') );
 
 
 app.use( '/api/login', require('./routes/auth') );
