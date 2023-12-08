@@ -60,6 +60,7 @@ const crearProduct = async (req, resp = response) => {
         usuario: uid,
         ...req.body
     });
+    console.table(req.body)
      product.createAt= new Date()
     try {
         const productDB = await product.save();

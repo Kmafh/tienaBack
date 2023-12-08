@@ -34,13 +34,16 @@ const ProductSchema = Schema({
         default: false
 
     },
-    VID:{
+    vid:{
         type: String,
     },
     description:{
         type: String,
     },
     img:{
+        type: String,
+    },
+    provincia:{
         type: String,
     }
 })
