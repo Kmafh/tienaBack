@@ -1,5 +1,5 @@
 const Usuario = require('../models/usuario');
-const Income = require('../models/income');
+const Product = require('../models/product');
 const fs = require('fs');
 
 
@@ -19,19 +19,21 @@ const actualizarImagen = async(tipo, id, nameArchivo) => {
     let pathViejo = '';
     
     switch( tipo ) {
-        case 'incomes':
-            const income = await Income.findById(id);
+        case 'product':
+            const product = await Product.findById(id);
+            console.log('Product: '+product);
+            console.log('ID: '+id);
             
-            if ( !income ) {
+            if ( !product ) {
                 console.log('No es un médico por id');
                 return false;
             }
 
-            pathViejo = `./uploads/incomes/${ income.img }`;
+            pathViejo = `./uploads/productos/${ product.img }`;
 
             borrarImagen( pathViejo );
-            income.img = nameArchivo;
-            await income.save();
+            product.img = nameArchivo;
+            await product.save();
             return true;
 
         break;

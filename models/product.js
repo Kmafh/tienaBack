@@ -5,10 +5,6 @@ const ProductSchema = Schema({
         type: String,
         required: true
     },
-    marca: {
-        type: String,
-        required: true
-    },
     category: {
         type: String,
         required: true
@@ -21,9 +17,8 @@ const ProductSchema = Schema({
         type: Number,
         required: true,
     },
-    marca: {
-        type: String,
-        required: true,
+    likes: {
+        type: Number,
     },
     createAt: {
         type: String,
@@ -34,7 +29,7 @@ const ProductSchema = Schema({
         default: false
 
     },
-    vid:{
+    uid:{
         type: String,
     },
     description:{

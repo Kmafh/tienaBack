@@ -3,6 +3,8 @@ const fs = require('fs');
 
 const { response } = require('express');
 const { v4: uuidv4 } = require('uuid');
+const sharp = require('sharp');
+
 const { actualizarImagen } = require('../helpers/actualizar-imagen');
 
 
@@ -10,13 +12,14 @@ const fileUpload = ( req, res = response ) => {
 
     const tipo = req.params.tipo;
     const id   = req.params.id;
+    console.log("EHH: "+tipo)
 
     // Validar tipo
-    const tiposValidos = ['incomes','usuarios','fondo'];
+    const tiposValidos = ['incomes','product','fondo'];
     if ( !tiposValidos.includes(tipo) ){
         return res.status(400).json({
             ok: false,
-            msg: 'No es un médico, usuario u hospital (tipo)'
+            msg: 'No es un médico, product u hospital (tipo)'
         });
     }
 
@@ -49,24 +52,46 @@ const fileUpload = ( req, res = response ) => {
     // Path para guardar la imagen
     const path = `./uploads/${ tipo }/${ nameArchivo }`;
 
-    // Mover la imagen
-    file.mv( path , (err) => {
-        if (err){
-            console.log(err)
-            return res.status(500).json({
-                ok: false,
-                msg: 'Error al mover la imagen: '+err
-            });
-        }
-        // Actualizar base de datos
-        actualizarImagen( tipo, id, nameArchivo );
+    // // Mover la imagen
+    // file.mv( path , (err) => {
+    //     if (err){
+    //         console.log(err)
+    //         return res.status(500).json({
+    //             ok: false,
+    //             msg: 'Error al mover la imagen: '+err
+    //         });
+    //     }
+    //     // Actualizar base de datos
+    //     actualizarImagen( tipo, id, nameArchivo );
 
-        res.json({
-            ok: true,
-            msg: 'Archivo subido',
-            nameArchivo
-        });
+    //     res.json({
+    //         ok: true,
+    //         msg: 'Archivo subido',
+    //         nameArchivo
+    //     });
+    // });
+
+     // Escalar la imagen antes de guardarla
+  sharp(file.data)
+  .resize({ width: 800 }) // Establece el ancho deseado
+  .toFile(path, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        ok: false,
+        msg: 'Error al procesar la imagen: ' + err,
+      });
+    }
+    
+    // Actualizar base de datos
+    actualizarImagen(tipo, id, nameArchivo);
+
+    res.json({
+      ok: true,
+      msg: 'Archivo subido',
+      nameArchivo
     });
+  });
     
 }
 
