@@ -12,7 +12,6 @@ const fileUpload = ( req, res = response ) => {
 
     const tipo = req.params.tipo;
     const id   = req.params.id;
-    console.log("EHH: "+tipo)
 
     // Validar tipo
     const tiposValidos = ['incomes','product','fondo'];

@@ -23,10 +23,10 @@ const ProductSchema = Schema({
     createAt: {
         type: String,
     },
-    seg_mano: {
+    active: {
         type: Boolean,
         required: true,
-        default: false
+        default: true
 
     },
     uid:{
@@ -38,6 +38,7 @@ const ProductSchema = Schema({
     img:{
         type: String,
     },
+    
     provincia:{
         type: String,
     }

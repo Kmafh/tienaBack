@@ -38,7 +38,6 @@ const getUsuario = async (req, res = response) => {
     const uid = req.params.id;
     try {
         const usuarioDB = await Usuario.findById( uid );
-        console.log("Uuser: "+usuarioDB)
         if ( !usuarioDB ) {
             return res.status(404).json({
                 ok: false,

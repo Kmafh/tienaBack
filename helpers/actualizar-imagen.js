@@ -4,11 +4,8 @@ const fs = require('fs');
 
 
 const borrarImagen = ( path ) => {
-    console.log("fuera: "+path)
-
     if ( fs.existsSync( path ) && path !=='./uploads/incomes/' ) {
         // borrar la imagen anterior
-        console.log("Dentro: "+path)
         fs.unlinkSync( path );
     }
 }
@@ -21,8 +18,6 @@ const actualizarImagen = async(tipo, id, nameArchivo) => {
     switch( tipo ) {
         case 'product':
             const product = await Product.findById(id);
-            console.log('Product: '+product);
-            console.log('ID: '+id);
             
             if ( !product ) {
                 console.log('No es un médico por id');

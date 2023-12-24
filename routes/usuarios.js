@@ -13,7 +13,7 @@ const router = Router();
 
 
 router.get( '/', validarJWT , getUsuarios );
-router.get( '/us/:id', validarJWT , getUsuario );
+router.get( '/us/:id', getUsuario );
 router.post( '/',
     [
         check('name', 'El name es obligatorio').not().isEmpty(),
