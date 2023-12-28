@@ -1,37 +1,26 @@
 const {Schema, model} = require('mongoose')
 
 const MsgSchema = Schema({
-    origin: {
+    uid: {
         type: String,
         required: true
     },
-    cant: {
-        type: Number,
-        required: true,
-    },
-    tipe: {
+    cuid: {
         type: String,
-        required: true,
+        required: true
+    },
+    pid: {
+        type: String,
+        required: true
     },
     createAt: {
         type: String,
     },
-    time: {
-        type: Boolean,
-        required: true,
-        default: false
-
-    },
-    uid:{
+    
+    subject:{
         type: String,
     },
-    associationId:{
-        type: String,
-    },
-    description:{
-        type: String,
-    },
-    img:{
+    body:{
         type: String,
     },
     active: {
