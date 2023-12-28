@@ -1,38 +1,31 @@
 const {Schema, model} = require('mongoose')
 
-const ProductSchema = Schema({
-    title: {
+const MsgSchema = Schema({
+    origin: {
         type: String,
         required: true
     },
-    category: {
+    cant: {
+        type: Number,
+        required: true,
+    },
+    tipe: {
         type: String,
-        required: true
-    },
-    stock: {
-        type: Number,
         required: true,
-    },
-    price: {
-        type: Number,
-        required: true,
-    },
-    likes: {
-        type: Number,
     },
     createAt: {
         type: String,
     },
-    active: {
+    time: {
         type: Boolean,
         required: true,
-        default: true
+        default: false
 
     },
     uid:{
         type: String,
     },
-    uName:{
+    associationId:{
         type: String,
     },
     description:{
@@ -41,18 +34,18 @@ const ProductSchema = Schema({
     img:{
         type: String,
     },
-    
-    provincia:{
-        type: String,
+    active: {
+        type: Boolean,
+        default: true
     }
 })
 
 
-ProductSchema.method('toJSON', function(){
+MsgSchema.method('toJSON', function(){
     const { __v, _id, ...object} = this.toObject();
     object.id = _id;
     return object;
 
 })
 
-module.exports = model( 'Product', ProductSchema);
+module.exports = model( 'Msg', MsgSchema);

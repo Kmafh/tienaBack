@@ -1,6 +1,6 @@
 /*
-    Likes
-    ruta: '/api/like'
+    Msgs
+    ruta: '/api/msg'
 */
 const { Router } = require('express');
 const { check } = require('express-validator');
@@ -9,18 +9,17 @@ const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 const {
-    getLikes,
-    crearLike,
-    actualizarLike,
-    borrarLike,
-    getLikeById
-} = require('../controllers/likes')
+    getMsgs,
+    crearMsg,
+    actualizarMsg,
+    borrarMsg,
+    getMsgById
+} = require('../controllers/msg')
 
 
 const router = Router();
 
-router.get( '/:uid', validarJWT, getLikes);
-router.get( '/id/:id', validarJWT, getLikeById);
+router.get( '/:uid', validarJWT, getMsgs);
 
 router.post( '/',
     [
@@ -29,7 +28,7 @@ router.post( '/',
         
         validarCampos
     ], 
-    crearLike 
+    crearMsg 
 );
 
 router.put( '/:id',
@@ -39,17 +38,17 @@ router.put( '/:id',
         check('cant','El hospital id debe de ser válido').not().isEmpty(),
         validarCampos
     ],
-    actualizarLike
+    actualizarMsg
 );
 
 router.delete( '/:id',
     validarJWT,
-    borrarLike
+    borrarMsg
 );
 
 router.get( ':id',
     validarJWT,
-    getLikeById
+    getMsgById
 );
 
 

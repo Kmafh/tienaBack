@@ -33,6 +33,7 @@ app.use( '/api/products', require('./routes/products') );
 app.use( '/api/login', require('./routes/auth') );
 app.use( '/api/upload', require('./routes/uploads') );
 app.use( '/api/likes', require('./routes/like') );
+app.use( '/api/msg', require('./routes/msg') );
 
 app.get('*', (req,res) => {
     res.sendFile( path.resolve( __dirname, './public/index.html'));

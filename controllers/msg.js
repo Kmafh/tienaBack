@@ -1,15 +1,15 @@
 const { response } = require('express');
 
-const Like = require('../models/like');
+const Msg = require('../models/msg');
 
-const getLikes = async(req, res = response) => {
+const getMsgs = async(req, res = response) => {
     const uid = req.params.uid;
     
     try {
-        const likes = await Like.find({ uid: uid })
+        const msgs = await Msg.find({ uid: uid })
         res.json({
             ok: true,
-            likes
+            msgs
         })
     } catch (error) {
         console.log(error);
@@ -20,15 +20,13 @@ const getLikes = async(req, res = response) => {
     }
 }
 
-const getLikeById = async(req, res = response) => {
+const getMsgById = async(req, res = response) => {
     const id = req.params.id;
     try {
-        const like = await  Like.find({ id: id })
-        console.log("DEntro: "+like)
-
+        const msg = await Msg.findById(id)
         res.json({
             ok: true,
-            like
+            msg
         })
     } catch (error) {
         console.log(error);
@@ -39,18 +37,18 @@ const getLikeById = async(req, res = response) => {
     }
 }
 
-const crearLike = async (req, resp = response) => {
+const crearMsg = async (req, resp = response) => {
     const uid = req.uid;
-    const like = new Like({
+    const msg = new Msg({
         usuario: uid,
         ...req.body
     });
-     like.createAt= new Date()
+     msg.createAt= new Date()
     try {
-        const likeDB = await like.save();
+        const msgDB = await msg.save();
         resp.json({
             ok: true,
-            like: likeDB
+            msg: msgDB
         })
 
     } catch (error) {
@@ -62,25 +60,25 @@ const crearLike = async (req, resp = response) => {
     }
 }
 
-const actualizarLike = async(req, res = response) => {
+const actualizarMsg = async(req, res = response) => {
     const id  = req.params.id;
     const uid = req.uid;
     try {
-        const like = await Like.findById( id );
-        if ( !like ) {
+        const msg = await Msg.findById( id );
+        if ( !msg ) {
             return res.status(404).json({
                 ok: true,
-                msg: 'Like no encontrado por id',
+                msg: 'Msg no encontrado por id',
             });
         }
-        const cambiosLike = {
+        const cambiosMsg = {
             ...req.body,
             usuario: uid
         }
-        const likeActualizado = await Like.findByIdAndUpdate( id, cambiosLike, { new: true } );
+        const msgActualizado = await Msg.findByIdAndUpdate( id, cambiosMsg, { new: true } );
         res.json({
             ok: true,
-            like: likeActualizado
+            msg: msgActualizado
         })
     } catch (error) {
         console.log(error);
@@ -91,17 +89,17 @@ const actualizarLike = async(req, res = response) => {
     }
 }
 
-const borrarLike = async (req, res = response) => {
+const borrarMsg = async (req, res = response) => {
     const id  = req.params.id;
     try {
-        const like = await Like.findById( id );
-        if ( !like ) {
+        const msg = await Msg.findById( id );
+        if ( !msg ) {
             return res.status(404).json({
                 ok: true,
-                msg: 'Like no encontrado por id',
+                msg: 'Msg no encontrado por id',
             });
         }
-        await Like.findByIdAndDelete( id );
+        await Msg.findByIdAndDelete( id );
         res.json({
             ok: true,
             msg: 'Médico borrado'
@@ -116,9 +114,9 @@ const borrarLike = async (req, res = response) => {
 }
 
 module.exports = {
-    getLikes,
-    crearLike,
-    actualizarLike,
-    borrarLike,
-    getLikeById
+    getMsgs,
+    crearMsg,
+    actualizarMsg,
+    borrarMsg,
+    getMsgById
 }
