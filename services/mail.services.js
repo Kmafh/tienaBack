@@ -17,7 +17,6 @@ const transporter = nodemailer.createTransport({
 })
 
 async function sendMailVerification(direccion, token) {
-    console.log("DEntro")
     try{
         transporter.sendMail({
             from: '"Registro Vaidno Pro 👻" <artadapt@gmail.com>',

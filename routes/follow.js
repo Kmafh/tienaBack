@@ -1,6 +1,6 @@
 /*
-    Likes
-    ruta: '/api/like'
+    Follows
+    ruta: '/api/follow'
 */
 const { Router } = require('express');
 const { check } = require('express-validator');
@@ -9,20 +9,20 @@ const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 const {
-    getLikes,
-    crearLike,
-    actualizarLike,
-    borrarLike,
-    getLikeById,
-    getLikeByPid
-} = require('../controllers/likes')
+    getFollows,
+    crearFollow,
+    actualizarFollow,
+    borrarFollow,
+    getFollowById,
+    getFollowByPid
+} = require('../controllers/follow')
 
 
 const router = Router();
 
-router.get( '/:uid', validarJWT, getLikes);
-router.get( '/id/:id', validarJWT, getLikeById);
-router.get( '/pid/:pid', validarJWT, getLikeByPid);
+router.get( '/:uid', validarJWT, getFollows);
+router.get( '/id/:id', validarJWT, getFollowById);
+router.get( '/pid/:pid', validarJWT, getFollowByPid);
 
 
 router.post( '/',
@@ -32,7 +32,7 @@ router.post( '/',
         
         validarCampos
     ], 
-    crearLike 
+    crearFollow 
 );
 
 router.put( '/:id',
@@ -42,17 +42,17 @@ router.put( '/:id',
         check('cant','El hospital id debe de ser válido').not().isEmpty(),
         validarCampos
     ],
-    actualizarLike
+    actualizarFollow
 );
 
 router.delete( '/:id',
     validarJWT,
-    borrarLike
+    borrarFollow
 );
 
 router.get( ':id',
     validarJWT,
-    getLikeById
+    getFollowById
 );
 
 

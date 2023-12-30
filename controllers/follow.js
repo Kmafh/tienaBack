@@ -1,15 +1,15 @@
 const { response } = require('express');
 
-const Like = require('../models/like');
+const Follow = require('../models/follow');
 
-const getLikes = async(req, res = response) => {
+const getFollows = async(req, res = response) => {
     const uid = req.params.uid;
     
     try {
-        const likes = await Like.find({ uid: uid })
+        const follows = await Follow.find({ uid: uid })
         res.json({
             ok: true,
-            likes
+            follows
         })
     } catch (error) {
         console.log(error);
@@ -20,14 +20,14 @@ const getLikes = async(req, res = response) => {
     }
 }
 
-const getLikeById = async(req, res = response) => {
+const getFollowById = async(req, res = response) => {
     const id = req.params.id;
     try {
-        const like = await  Like.find({ id: id })
+        const follow = await  Follow.find({ id: id })
 
         res.json({
             ok: true,
-            like
+            follow
         })
     } catch (error) {
         console.log(error);
@@ -37,15 +37,15 @@ const getLikeById = async(req, res = response) => {
         })
     }
 }
-const getLikeByPid = async(req, res = response) => {
+const getFollowByPid = async(req, res = response) => {
     const pid = req.params.pid;
     console.log("Dentro:"+pid)
     try {
-        const like = await  Like.find({ pid: pid })
+        const follow = await  Follow.find({ pid: pid })
 
         res.json({
             ok: true,
-            like
+            follow
         })
     } catch (error) {
         console.log(error);
@@ -55,18 +55,18 @@ const getLikeByPid = async(req, res = response) => {
         })
     }
 }
-const crearLike = async (req, resp = response) => {
+const crearFollow = async (req, resp = response) => {
     const uid = req.uid;
-    const like = new Like({
+    const follow = new Follow({
         usuario: uid,
         ...req.body
     });
-     like.createAt= new Date()
+     follow.createAt= new Date()
     try {
-        const likeDB = await like.save();
+        const followDB = await follow.save();
         resp.json({
             ok: true,
-            like: likeDB
+            follow: followDB
         })
 
     } catch (error) {
@@ -78,25 +78,25 @@ const crearLike = async (req, resp = response) => {
     }
 }
 
-const actualizarLike = async(req, res = response) => {
+const actualizarFollow = async(req, res = response) => {
     const id  = req.params.id;
     const uid = req.uid;
     try {
-        const like = await Like.findById( id );
-        if ( !like ) {
+        const follow = await Follow.findById( id );
+        if ( !follow ) {
             return res.status(404).json({
                 ok: true,
-                msg: 'Like no encontrado por id',
+                msg: 'Follow no encontrado por id',
             });
         }
-        const cambiosLike = {
+        const cambiosFollow = {
             ...req.body,
             usuario: uid
         }
-        const likeActualizado = await Like.findByIdAndUpdate( id, cambiosLike, { new: true } );
+        const followActualizado = await Follow.findByIdAndUpdate( id, cambiosFollow, { new: true } );
         res.json({
             ok: true,
-            like: likeActualizado
+            follow: followActualizado
         })
     } catch (error) {
         console.log(error);
@@ -107,17 +107,17 @@ const actualizarLike = async(req, res = response) => {
     }
 }
 
-const borrarLike = async (req, res = response) => {
+const borrarFollow = async (req, res = response) => {
     const id  = req.params.id;
     try {
-        const like = await Like.findById( id );
-        if ( !like ) {
+        const follow = await Follow.findById( id );
+        if ( !follow ) {
             return res.status(404).json({
                 ok: true,
-                msg: 'Like no encontrado por id',
+                msg: 'Follow no encontrado por id',
             });
         }
-        await Like.findByIdAndDelete( id );
+        await Follow.findByIdAndDelete( id );
         res.json({
             ok: true,
             msg: 'Médico borrado'
@@ -132,10 +132,10 @@ const borrarLike = async (req, res = response) => {
 }
 
 module.exports = {
-    getLikes,
-    crearLike,
-    actualizarLike,
-    borrarLike,
-    getLikeById,
-    getLikeByPid
+    getFollows,
+    crearFollow,
+    actualizarFollow,
+    borrarFollow,
+    getFollowById,
+    getFollowByPid
 }

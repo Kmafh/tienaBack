@@ -99,6 +99,7 @@ const crearUsuario = async(req, res = response) => {
 const actualizarUsuario = async (req, res = response) => {
     // TODO: Validar token y comprobar si es el usuario correcto
     const uid = req.params.id;
+    console.log("AAAAAA"+uid)
     try {
         const usuarioDB = await Usuario.findById( uid );
         if ( !usuarioDB ) {
@@ -108,7 +109,7 @@ const actualizarUsuario = async (req, res = response) => {
             });
         }
         // Actualizaciones
-        const { password, google, email, img, ...campos } = req.body;
+        const { password, google, email,  ...campos } = req.body;
         if ( usuarioDB.email !== email ) {
             const existeEmail = await Usuario.findOne({ email });
             if ( existeEmail ) {
