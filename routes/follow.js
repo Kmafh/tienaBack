@@ -28,7 +28,7 @@ router.get( '/pid/:pid', validarJWT, getFollowByPid);
 router.post( '/',
     [
         validarJWT,
-        check('origin','El name del registro es necesario').not().isEmpty(),
+        check('uid','El uid del registro es necesario').not().isEmpty(),
         
         validarCampos
     ], 

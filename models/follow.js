@@ -9,10 +9,6 @@ const FollowSchema = Schema({
         type: String,
         required: true,
     },
-    text: {
-        type: String,
-        required: true,
-    },
     createAt: {
         type: String,
     },
